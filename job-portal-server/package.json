@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "start build",
     "start": "node index.js"
   },
   "keywords": [],
