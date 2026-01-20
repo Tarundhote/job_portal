@@ -1,6 +1,6 @@
 import React from "react";
-
 import { createBrowserRouter } from "react-router-dom";
+
 import App from "../App";
 import Home from "../pages/Home";
 import MyJobs from "../pages/MyJobs";
@@ -11,6 +11,9 @@ import JobDetails from "../pages/JobDetails";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+
+// ✅ Backend Base URL (Render)
+const API_URL = "https://job-portal-3-sum1.onrender.com";
 
 const router = createBrowserRouter([
   {
@@ -35,17 +38,27 @@ const router = createBrowserRouter([
       },
       {
         path: "/post-job",
-        element: <CreateJob />,
+        element: (
+          <PrivateRoute>
+            <CreateJob />
+          </PrivateRoute>
+        ),
       },
       {
         path: "edit-job/:id",
-        element: <UpdateJob />,
+        element: (
+          <PrivateRoute>
+            <UpdateJob />
+          </PrivateRoute>
+        ),
         loader: ({ params }) =>
-          fetch(`https://mern-jobportal-ckfs.onrender.com/all-jobs/${params.id}`),
+          fetch(`${API_URL}/all-jobs/${params.id}`),
       },
       {
         path: "/jobs/:id",
         element: <JobDetails />,
+        loader: ({ params }) =>
+          fetch(`${API_URL}/all-jobs/${params.id}`),
       },
     ],
   },
